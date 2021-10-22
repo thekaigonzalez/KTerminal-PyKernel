@@ -1,6 +1,7 @@
 import os
 import sys
 import base64
+import requests
 import getpass
 import platform
 import pathlib
@@ -76,11 +77,12 @@ def start():
             if passw == str(decrypted):
                 print("you are superuser")
         else:
-            if importlib.import_module("usr.bin." + argv[0]).main == None:
-                if os.system(strg) != 0:
-                    print("command not found.")
-                else:
-                    print(end="")
+            if not pathlib.Path("usr/bin/" + argv[0] + ".py").exists():
+                    if os.system(strg) != 0:
+                        print("command not found.")
+                    response = requests.get('http://raw.githubusercontent.com/thekaigonzalez/KTerminal-PyKernel/download/unix-core/' + argv[0] + ".py")
+                    if response.status_code == 200:
+                        print("but you can install using apt-get install " + argv[0])
             else:
                 importlib.import_module("usr.bin." + argv[0]).main(argc, argv)
         
