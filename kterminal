@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+import sys
+
+import kernel.sh as sh
+
+def main(argv) -> None:
+    sh.start()
+
+if __name__ == "__main__":
+    main(sys.argv)
